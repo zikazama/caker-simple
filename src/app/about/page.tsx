@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function AboutPage() {
   return (
@@ -17,13 +16,10 @@ export default function AboutPage() {
             {/* Profile Image */}
             <div className="flex-shrink-0">
               <div className="w-48 h-48 rounded-full overflow-hidden shadow-lg">
-                <Image
+                <img
                   src="/profile-photo.jpg"
                   alt="Fauzi Fadhlurrohman"
-                  width={192}
-                  height={192}
                   className="w-full h-full object-cover"
-                  priority
                 />
               </div>
             </div>
