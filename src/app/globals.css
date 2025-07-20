@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Rich text editor styles */
+div[contenteditable="true"].ProseMirror {
+  color: #1f2937 !important;
+  background-color: white !important;
+}
+
+div[contenteditable="true"].ProseMirror p {
+  color: #1f2937 !important;
+}
+
+div[contenteditable="true"].ProseMirror h1,
+div[contenteditable="true"].ProseMirror h2,
+div[contenteditable="true"].ProseMirror h3,
+div[contenteditable="true"].ProseMirror h4,
+div[contenteditable="true"].ProseMirror h5,
+div[contenteditable="true"].ProseMirror h6 {
+  color: #1f2937 !important;
+}
+
+div[contenteditable="true"].ProseMirror ul,
+div[contenteditable="true"].ProseMirror ol {
+  color: #1f2937 !important;
+}
+
+div[contenteditable="true"].ProseMirror li {
+  color: #1f2937 !important;
+}
+
+div[contenteditable="true"].ProseMirror blockquote {
+  color: #1f2937 !important;
+}
+
+div[contenteditable="true"].ProseMirror code {
+  color: #1f2937 !important;
+  background-color: #f3f4f6 !important;
+}
+
+div[contenteditable="true"].ProseMirror a {
+  color: #2563eb !important;
+}
+
+div[contenteditable="true"].ProseMirror .is-editor-empty:first-child::before {
+  color: #9ca3af !important;
+} 
