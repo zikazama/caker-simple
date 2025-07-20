@@ -8,6 +8,8 @@ import toast from 'react-hot-toast'
 import RichTextEditor from './RichTextEditor'
 
 interface HRFormData {
+  companyName: string
+  location: string
   jobDescription: string
 }
 
@@ -19,12 +21,24 @@ export default function HRForm({ onBack }: HRFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [matches, setMatches] = useState<MatchResult[]>([])
   const [showResults, setShowResults] = useState(false)
+  const [companyName, setCompanyName] = useState('')
+  const [location, setLocation] = useState('')
   const [jobDescription, setJobDescription] = useState('')
   const [isTransitioning, setIsTransitioning] = useState(false)
 
   const { handleSubmit, formState: { errors } } = useForm<HRFormData>()
 
   const onSubmit = async (data: HRFormData) => {
+    if (!companyName.trim()) {
+      toast.error('Nama perusahaan wajib diisi')
+      return
+    }
+    
+    if (!location.trim()) {
+      toast.error('Lokasi wajib diisi')
+      return
+    }
+    
     if (!jobDescription.trim()) {
       toast.error('Deskripsi lowongan wajib diisi')
       return
@@ -41,6 +55,8 @@ export default function HRForm({ onBack }: HRFormProps) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          companyName: companyName,
+          location: location,
           jobDescription: jobDescription
         }),
       })
@@ -206,9 +222,43 @@ export default function HRForm({ onBack }: HRFormProps) {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Nama Perusahaan *
+                </label>
+                <input
+                  type="text"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  placeholder="Contoh: PT Tech Solutions Indonesia"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                {!companyName.trim() && (
+                  <p className="mt-1 text-sm text-red-600">Nama perusahaan wajib diisi</p>
+                )}
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Lokasi *
+                </label>
+                <input
+                  type="text"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  placeholder="Contoh: Jakarta Selatan, Indonesia"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                {!location.trim() && (
+                  <p className="mt-1 text-sm text-red-600">Lokasi wajib diisi</p>
+                )}
+              </div>
+            </div>
+            
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Deskripsi Lowongan Kerja
+                Deskripsi Lowongan Kerja *
               </label>
               <RichTextEditor
                 value={jobDescription}
@@ -223,7 +273,7 @@ export default function HRForm({ onBack }: HRFormProps) {
 
             <button
               type="submit"
-              disabled={isLoading || !jobDescription.trim() || isTransitioning}
+              disabled={isLoading || !companyName.trim() || !location.trim() || !jobDescription.trim() || isTransitioning}
               className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transition-all"
             >
               {isLoading ? (

@@ -6,7 +6,21 @@ import { Job, CV, MatchResult } from '@/types'
 
 export async function POST(request: NextRequest) {
   try {
-    const { jobDescription } = await request.json()
+    const { companyName, location, jobDescription } = await request.json()
+
+    if (!companyName) {
+      return NextResponse.json(
+        { error: 'Company name is required' },
+        { status: 400 }
+      )
+    }
+
+    if (!location) {
+      return NextResponse.json(
+        { error: 'Location is required' },
+        { status: 400 }
+      )
+    }
 
     if (!jobDescription) {
       return NextResponse.json(
@@ -33,6 +47,8 @@ export async function POST(request: NextRequest) {
     // Store job in MongoDB
     const job: Job = {
       id: Date.now().toString(),
+      companyName: companyName,
+      location: location,
       description: jobDescription,
       embedding: jobEmbedding,
       createdAt: new Date()

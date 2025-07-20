@@ -2,8 +2,8 @@ export interface Job {
   id: string;
   title?: string;
   description: string;
-  company?: string;
-  location?: string;
+  companyName: string;
+  location: string;
   requirements?: string[];
   embedding?: number[];
   vectorId?: string;

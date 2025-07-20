@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { User, Building2 } from 'lucide-react'
+import { User, Building2, Play } from 'lucide-react'
+import Link from 'next/link'
 
 interface RoleSelectorProps {
   onRoleSelect: (role: 'hr' | 'looker') => void
@@ -75,9 +76,17 @@ export default function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
         </div>
 
         <div className="text-center mt-8">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 mb-4">
             Pilih peran Anda untuk memulai
           </p>
+          
+          <Link
+            href="/demo"
+            className="inline-flex items-center px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors"
+          >
+            <Play className="w-4 h-4 mr-2" />
+            Lihat Demo Data
+          </Link>
         </div>
       </div>
     </div>
